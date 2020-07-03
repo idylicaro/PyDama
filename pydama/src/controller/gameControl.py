@@ -11,5 +11,5 @@ def initializeTabuleiro():
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro[i])):
             tabuleiro[i][j] = 'x'
-            
+
     return tabuleiro
