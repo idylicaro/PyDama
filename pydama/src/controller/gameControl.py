@@ -23,12 +23,12 @@ def initializePlayerColorBlack(tabuleiro):
         for j in range(0,8):
             if i % 2!=0:
                 if(j % 2 == 0):
-                    tabuleiro[i][j] = 'p'
+                    tabuleiro[i][j] = 'P'
                 else:
                     tabuleiro[i][j] = ' '
             else:
                 if(j % 2 != 0):
-                    tabuleiro[i][j] = 'p'
+                    tabuleiro[i][j] = 'P'
                 else:
                     tabuleiro[i][j] = ' '
         
@@ -37,12 +37,12 @@ def initializePlayerColorWhite(tabuleiro):
         for j in range(0,8):
             if i % 2!=0:
                 if(j % 2 == 0):
-                    tabuleiro[i][j] = 'b'
+                    tabuleiro[i][j] = 'B'
                 else:
                     tabuleiro[i][j] = ' '
             else:
                 if(j % 2 != 0):
-                    tabuleiro[i][j] = 'b'
+                    tabuleiro[i][j] = 'B'
                 else:
                     tabuleiro[i][j] = ' '
         
