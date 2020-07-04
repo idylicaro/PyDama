@@ -6,10 +6,10 @@ def isValidAttackBlackPieceToFront(x,y,tabuleiro):
 
     if tabuleiro[x][y] == 'B':
         if not ((y - 1) < 0 or (y + 1) > 7): 
-            if tabuleiro[x-1][y+1] == ' ':
+            if isRightFront():
                 #direita
                 result = True
-            elif tabuleiro[x-1][y-1] == ' ':
+            elif isLeftFront():
                 #esquerda
                 result = True
         
@@ -20,10 +20,10 @@ def isValidAttackBlackPieceToBack(x,y,tabuleiro):
 
     if tabuleiro[x][y] == 'B':
         if not ((y - 1) < 0 or (y + 1) > 7): 
-            if tabuleiro[x+1][y+1] == ' ':
+            if isRightBack():
                 #direita
                 result = True
-            elif tabuleiro[x+1][y-1] == ' ':
+            elif isLeftBack():
                 #esquerda
                 result = True
         
@@ -34,10 +34,10 @@ def isValidAttackWhitePieceToFront(x,y,tabuleiro):
 
     if tabuleiro[x][y] == 'P':
         if not ((y - 1) < 0 or (y + 1) > 7): 
-            if tabuleiro[x+1][y+1] == ' ':
+            if isRightBack():
                 #direita
                 result = True
-            elif tabuleiro[x+1][y-1] == ' ':
+            elif isLeftBack():
                 #esquerda
                 result = True
         
@@ -48,15 +48,39 @@ def isValidAttackWhitePieceToBack(x,y,tabuleiro):
 
     if tabuleiro[x][y] == 'P':
         if not ((y - 1) < 0 or (y + 1) > 7): 
-            if tabuleiro[x-1][y+1] == ' ':
+            if isRightFront():
                 #direita
                 result = True
-            elif tabuleiro[x-1][y-1] == ' ':
+            elif isLeftFront():
                 #esquerda
                 result = True
         
     return result
 
+def isLeftFront(x,y,tabuleiro):
+    if tabuleiro[x-1][y-1] == ' ':
+        return True
+    else:
+        return False
+
+def isLeftBack(x,y,tabuleiro):
+    if tabuleiro[x+1][y-1] == ' ':
+        return True
+    else:
+        return False
+
+def isRightFront(x,y,tabuleiro):
+    if tabuleiro[x-1][y+1] == ' ':
+        return True
+    else:
+        return False
+
+def isRightBack(x,y,tabuleiro):
+    if tabuleiro[x+1][y+1] == ' ':
+        return True
+    else:
+        return False
 
 
-
+def attack(coordenateThisPiece, coordenateEnemyPiece, tabuleiro):
+    return 'NADA AINDA';
