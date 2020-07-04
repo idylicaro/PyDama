@@ -2,7 +2,8 @@
 def display (tabuleiro):
     charCodeInitial = 65 #code asc2 
 
-    print(' ','','0','1','2','3','4','5','6','7')
+    print(' ','','0','1','2','3','4','5','6','7'+'\n')
+    
     for i in range(len(tabuleiro)):
         
         for j in range(len(tabuleiro[i])):
