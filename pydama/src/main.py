@@ -4,8 +4,7 @@ from view import presentation
 from controller import gameControl
 player1 = 12
 player2 = 12
-while (player1 != 0 or player2 != 0):
-    tabuleiro = gameControl.initializeTabuleiro()
-    presentation.display(tabuleiro)
+#while (player1 != 0 or player2 != 0):
+tabuleiro = gameControl.initializeTabuleiro()
+presentation.display(tabuleiro)
 
-print('eu teste')
