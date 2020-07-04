@@ -2,10 +2,10 @@
 def display (tabuleiro):
     charCodeInitial = 65 #code asc2 
 
-    print(' ','','0','1','2','3','4','5','6','7'+'\n')
-    
-    for i in range(len(tabuleiro)):
-        
+    print()
+    print(' ','','0','1','2','3','4','5','6','7')
+    print()
+    for i in range(len(tabuleiro)):  
         for j in range(len(tabuleiro[i])):
             if (j==0):
                 print(chr(charCodeInitial),end='  ')
@@ -21,6 +21,7 @@ def display (tabuleiro):
                     print(coloredWhite(tabuleiro[i][j]), end=' ')
         print()
         charCodeInitial += 1
+    print();print()
 
 def coloredWhite(string):
     return '\x1b[0;30;47m' + string + '\x1b[0m'

@@ -12,9 +12,40 @@ def initializeTabuleiro():
     
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro[i])):
-            tabuleiro[i][j] = 'x'
+            tabuleiro[i][j] = ' '
 
+    initializePlayerColorBlack(tabuleiro)
+    initializePlayerColorWhite(tabuleiro)
     return tabuleiro
+
+def initializePlayerColorBlack(tabuleiro):
+    for i in range(7,4,-1):  
+        for j in range(0,8):
+            if i % 2!=0:
+                if(j % 2 == 0):
+                    tabuleiro[i][j] = 'p'
+                else:
+                    tabuleiro[i][j] = ' '
+            else:
+                if(j % 2 != 0):
+                    tabuleiro[i][j] = 'p'
+                else:
+                    tabuleiro[i][j] = ' '
+        
+def initializePlayerColorWhite(tabuleiro):
+    for i in range(0,3):  
+        for j in range(0,8):
+            if i % 2!=0:
+                if(j % 2 == 0):
+                    tabuleiro[i][j] = 'b'
+                else:
+                    tabuleiro[i][j] = ' '
+            else:
+                if(j % 2 != 0):
+                    tabuleiro[i][j] = 'b'
+                else:
+                    tabuleiro[i][j] = ' '
+        
 
 
 def convertCharCoordenateToNumber(caracter):
@@ -79,5 +110,3 @@ def getCoordenadas():
     coordenadas[1] = y
 
     return coordenadas
-
-print(getCoordenadas())
