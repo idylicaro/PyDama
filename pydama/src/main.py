@@ -8,6 +8,4 @@ while (player1 != 0 or player2 != 0):
     tabuleiro = gameControl.initializeTabuleiro()
     presentation.display(tabuleiro)
 
-print('ikaruz teste')
-
-
+print('eu teste')
