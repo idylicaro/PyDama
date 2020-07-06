@@ -100,7 +100,7 @@ def getCoordenadas():
     boolIsValidNumber = isValidNumberInput(y)
 
     while not boolIsValidNumber:
-        os.system('cls') #limpar cmd
+        #os.system('cls') #limpar cmd
         print("Digite Corretamente")
         y = int(input("Digite a coluna(0-7)"))
         boolIsValidNumber = isValidNumberInput(y)
