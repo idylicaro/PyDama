@@ -1,5 +1,3 @@
-# xy ele é a cordenada DA PEÇA QUE VAI SER COMIDA
-
 def getDirectionVerticalMoviment(coordenateThisPiece, coordenateAction):
     if coordenateThisPiece[0] < coordenateAction[0]:
         return 'DOWN'
@@ -35,7 +33,6 @@ def hasEnemyLeft(coorThisPiece, coorAction, tabuleiro, yDirection):
 def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
-    print(coorEnemy)
     tabuleiro[coorEnemy[0]][coorEnemy[1]] = ' '
     tabuleiro[coorAfter[0]][coorAfter[1]] = piece
     
