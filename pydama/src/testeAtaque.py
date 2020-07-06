@@ -7,7 +7,17 @@ player1 = 12
 player2 = 12
 
 #while (player1 != 0 or player2 != 0):
-tabuleiro = gameControl.initializeTabuleiro()
+#tabuleiro = gameControl.initializeTabuleiro()
+
+tabuleiro =     [[0,0,0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0], 
+                [0,0,'B',0,0,0,0,0], 
+                [0,'P',0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0]]
+
 presentation.display(tabuleiro)
 
 print('Qual peça deseja movimentar?')
