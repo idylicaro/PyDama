@@ -85,26 +85,29 @@ def getCoordenadas():
     boolIsValidChar = False
     boolIsValidNumber = False
     
-    x = input("Digite a linha(A-H)").upper()
+    x = input("Digite a linha(A-H): ").upper()
     boolIsValidChar = isValidCharInput(x)
 
     while not boolIsValidChar:
         os.system('cls') #limpar cmd
-        print("Digite Corretamente")
-        x = input("Digite a linha(A-H)").upper()
+        print("Digite Corretamente:")
+        x = input("Digite a linha(A-H):").upper()
         boolIsValidChar = isValidCharInput(x)
 
     x = convertCharCoordenateToNumber(x)
+
     
-    y = int(input("Digite a coluna(0-7)"))
+
+    y = int(input("Digite a coluna(0-7): "))
     boolIsValidNumber = isValidNumberInput(y)
 
     while not boolIsValidNumber:
         #os.system('cls') #limpar cmd
-        print("Digite Corretamente")
-        y = int(input("Digite a coluna(0-7)"))
+        print("Digite Corretamente:")
+        y = int(input("Digite a coluna(0-7): "))
         boolIsValidNumber = isValidNumberInput(y)
 
+    print() #pulando linha
 
     coordenadas[0] = x
     coordenadas[1] = y

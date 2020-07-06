@@ -1,123 +1,82 @@
 # xy ele é a cordenada DA PEÇA QUE VAI SER COMIDA
-import gameControl
 
-def isValidAttackBlackPieceToFront(x,y,tabuleiro):
-    result = False
-
-    if tabuleiro[x][y] == 'B':
-        if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightFrontValidEat(x,y,tabuleiro):
-                #direita
-                result = True
-            elif isLeftFrontValidEat(x,y,tabuleiro):
-                #esquerda
-                result = True
-        
-    return result
-
-def isValidAttackBlackPieceToBack(x,y,tabuleiro):
-    result = False
-
-    if tabuleiro[x][y] == 'B':
-        if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightBackValidEat(x,y,tabuleiro):
-                #direita
-                result = True
-            elif isLeftBackValidEat(x,y,tabuleiro):
-                #esquerda
-                result = True
-        
-    return result
-
-def isValidAttackWhitePieceToFront(x,y,tabuleiro):
-    result = False
-
-    if tabuleiro[x][y] == 'P':
-        if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightBackValidEat(x,y,tabuleiro):
-                #direita
-                result = True
-            elif isLeftBackValidEat(x,y,tabuleiro):
-                #esquerda
-                result = True
-        
-    return result
-
-def isValidAttackWhitePieceToBack(x,y,tabuleiro):
-    result = False
-
-    if tabuleiro[x][y] == 'P':
-        if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightFrontValidEat(x,y,tabuleiro):
-                #direita
-                result = True
-            elif isLeftFrontValidEat(x,y,tabuleiro):
-                #esquerda
-                result = True
-        
-    return result
-
-def isLeftFrontValidEat(x,y,tabuleiro):
-    if tabuleiro[x-1][y-1] == ' ':
-        return True
+def getDirectionVerticalMoviment(coordenateThisPiece, coordenateAction):
+    if coordenateThisPiece[0] < coordenateAction[0]:
+        return 'DOWN'
     else:
-        return False
+        return 'UP'
 
-def isLeftBackValidEat(x,y,tabuleiro):
-    if tabuleiro[x+1][y-1] == ' ':
-        return True
+def getDirectionHorizontalMoviment(coordenateThisPiece, coordenateAction):
+        if coordenateThisPiece[1] < coordenateAction[1]:
+            return 'RIGHT'
+        else:
+            return 'LEFT'
+
+def hasEnemyRight(coorThisPiece, coorAction, tabuleiro, yDirection):
+    enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
+    if yDirection == 'UP':
+        if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]+1] == enemyPiece:
+            return True
     else:
-        return False
-
-def isRightFrontValidEat(x,y,tabuleiro):
-    if tabuleiro[x-1][y+1] == ' ':
-        return True
-    else:
-        return False
-
-def isRightBackValidEat(x,y,tabuleiro):
-    if tabuleiro[x+1][y+1] == ' ':
-        return True
-    else:
-        return False
-
-def isBlack(coorPiece, tabuleiro):
-    if tabuleiro[coorPiece[0]][coorPiece[1]] == 'P':
-        return True
+        if tabuleiro[coorThisPiece[0]+1][coorThisPiece[1]+1] == enemyPiece:
+            return True
     return False
 
-def isWhite(coorPiece, tabuleiro):
-    if tabuleiro[coorPiece[0]][coorPiece[1]] == 'B':
-        return True
+def hasEnemyLeft(coorThisPiece, coorAction, tabuleiro, yDirection):
+    enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
+    if yDirection == 'UP':
+        if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]-1] == enemyPiece:
+            return True
+    else:
+        if tabuleiro[coorThisPiece[0]+1][coorThisPiece[1]-1] == enemyPiece:
+            return True
     return False
 
-def attackMove(coordenateThisPiece, coordenateEnemyPiece, tabuleiro, directionY):
-    piece = tabuleiro[coordenateThisPiece[0]][coordenateThisPiece[1]]
-    tabuleiro[coordenateThisPiece[0]][coordenateThisPiece[1]] = ' '
-    tabuleiro[coordenateEnemyPiece[0]][coordenateEnemyPiece[1]] = ' '
+def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
+    piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
+    tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
+    print(coorEnemy)
+    tabuleiro[coorEnemy[0]][coorEnemy[1]] = ' '
+    tabuleiro[coorAfter[0]][coorAfter[1]] = piece
     
-    if directionY == 'UP':
-        if isLeftFrontValidEat():
-            tabuleiro[coordenateEnemyPiece[0]-1][coordenateEnemyPiece[1]-1] = piece
-        elif isRightFrontValidEat():
-            tabuleiro[coordenateEnemyPiece[0]-1][coordenateEnemyPiece[1]+1] = piece
-    elif directionY == 'DOWN':
-        if isLeftBackValidEat():
-            tabuleiro[coordenateEnemyPiece[0]+1][coordenateEnemyPiece[1]-1] = piece
-        elif isRightBackValidEat():
-            tabuleiro[coordenateEnemyPiece[0]+1][coordenateEnemyPiece[1]+1] = piece
+def attack(coorThisPiece, coorAction,tabuleiro): 
 
+    if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
+        if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
+            coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
+            if hasEnemyRight(coorThisPiece,coorEnemy,tabuleiro,'DOWN'):
+                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                else:
+                    print('Não é possivel esse ataque!')
 
-def attack(coordenateThisPiece, coordenateEnemyPiece, tabuleiro):
-    if isBlack(coordenateThisPiece,tabuleiro):
-        if isValidAttackBlackPieceToBack(coordenateEnemyPiece[0], coordenateEnemyPiece[1], tabuleiro):
-            attackMove(coordenateThisPiece, coordenateEnemyPiece, tabuleiro, 'DOWN')
-        elif isValidAttackBlackPieceToFront(coordenateEnemyPiece[0], coordenateEnemyPiece[1], tabuleiro):
-            attackMove(coordenateThisPiece, coordenateEnemyPiece, tabuleiro, 'UP')
+        else:
+            coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
+            if hasEnemyLeft(coorThisPiece,coorEnemy,tabuleiro,'DOWN'):
+                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                else:
+                    print('Não é possivel esse ataque!')
 
-    elif isWhite(coordenateThisPiece,tabuleiro):
-        if isValidAttackWhitePieceToBack(coordenateEnemyPiece[0], coordenateEnemyPiece[1], tabuleiro):
-            attackMove(coordenateThisPiece, coordenateEnemyPiece, tabuleiro, 'UP')
-        elif isValidAttackWhitePieceToFront(coordenateEnemyPiece[0], coordenateEnemyPiece[1], tabuleiro):
-            attackMove(coordenateThisPiece, coordenateEnemyPiece, tabuleiro, 'DOWN')
+    else:
+        if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
+            coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
+            if hasEnemyRight(coorThisPiece,coorEnemy,tabuleiro,'UP'):
+                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                else:
+                    print('Não é possivel esse ataque!')
+        else:
+            coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]-1]
+            if hasEnemyLeft(coorThisPiece,coorEnemy,tabuleiro,'UP'):
+                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                else:
+                    print('Não é possivel esse ataque!')
 
+def isEmptyPosition(coordenate,tabuleiro):
+    return tabuleiro[coordenate[0]][coordenate[1]] == ' '
+
+def isValidPosition(coordenate):
+    y =  coordenate[1]
+    return not ((y - 1) < 0 or (y + 1) > 7)
