@@ -16,6 +16,8 @@ tabuleiro = gameControl.initializeTabuleiro()
 tabuleiro[2][3] = 'B' 
 tabuleiro[3][4] = 'P'
 tabuleiro[4][5] = ' '
+tabuleiro[2][7] = ' '
+tabuleiro[3][6] = 'P'
 
 while (player1Score != 0 or player2Score != 0):
     print('::::::::::: Turno {} :::::::::::'.format(turno))
@@ -37,13 +39,53 @@ while (player1Score != 0 or player2Score != 0):
         print('Qual peça {} deseja movimentar?'.format(currentPlayer))
         coorPlayer = gameControl.getCoordenadas()
 
-    lastPlayerPiece = tabuleiro[coorPlayer[0]][coorPlayer[1]]
 
     print('Onde deseja colocar sua peça?')
     coorAction = gameControl.getCoordenadas()
 
-    attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    while QuantidadePeçaComida != 0:
+        coorPlayer = coorAction
+        print('PLAYER:',coorPlayer)
+        print('ENEMY:',[coorPlayer[0]+1,coorPlayer[1]-1], tabuleiro[coorPlayer[0]+1][coorPlayer[1]-1])
+        
 
+        if (attackControl.hasEnemyLeft(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]-1],tabuleiro,'DOWN')
+            and attackControl.isValidPosition([coorPlayer[0]+2,coorPlayer[1]-2])
+            and attackControl.isEmptyPosition([coorPlayer[0]+2,coorPlayer[1]-2],tabuleiro)):
+            
+            presentation.display(tabuleiro)
+            print('Onde deseja colocar sua peça?')
+            coorAction = gameControl.getCoordenadas()
+        elif (attackControl.hasEnemyLeft(coorPlayer,[coorPlayer[0]-1,coorPlayer[1]-1],tabuleiro,'UP')
+             and attackControl.isValidPosition([coorPlayer[0]-2,coorPlayer[1]-2])
+             and attackControl.isEmptyPosition([coorPlayer[0]-2,coorPlayer[1]-2],tabuleiro)):
+
+            presentation.display(tabuleiro)
+            print('Onde deseja colocar sua peça?')
+            coorAction = gameControl.getCoordenadas()
+        elif (attackControl.hasEnemyRight(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]+1],tabuleiro,'DOWN')
+            and attackControl.isValidPosition([coorPlayer[0]+2,coorPlayer[1]+2])
+            and attackControl.isEmptyPosition([coorPlayer[0]+2,coorPlayer[1]+2],tabuleiro)):
+            
+            presentation.display(tabuleiro)
+            print('Onde deseja colocar sua peça?')
+            coorAction = gameControl.getCoordenadas()
+        elif (attackControl.hasEnemyRight(coorPlayer,[coorPlayer[0]-1,coorPlayer[1]+1],tabuleiro,'UP')
+            and attackControl.isValidPosition([coorPlayer[0]-2,coorPlayer[1]+2])
+            and attackControl.isEmptyPosition([coorPlayer[0]-2,coorPlayer[1]+2],tabuleiro)):
+            
+            presentation.display(tabuleiro)
+            print('Onde deseja colocar sua peça?')
+            coorAction = gameControl.getCoordenadas()
+        else:
+            print("BREAK")
+            break
+            
+        QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+        print('QUANTCOMIDA',QuantidadePeçaComida)
+
+    lastPlayerPiece = tabuleiro[coorPlayer[0]][coorPlayer[1]]
     turno = turno + 1
 
 # BRANCA PARA BAIXO DIEIRA (VERIFICADO)

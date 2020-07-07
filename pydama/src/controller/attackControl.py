@@ -11,6 +11,7 @@ def getDirectionHorizontalMoviment(coordenateThisPiece, coordenateAction):
             return 'LEFT'
 
 def hasEnemyRight(coorThisPiece, coorAction, tabuleiro, yDirection):
+#coor action é a cordenada em si do enemy
     enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
     if yDirection == 'UP':
         if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]+1] == enemyPiece:
@@ -21,7 +22,9 @@ def hasEnemyRight(coorThisPiece, coorAction, tabuleiro, yDirection):
     return False
 
 def hasEnemyLeft(coorThisPiece, coorAction, tabuleiro, yDirection):
+#coor action é a cordenada em si do enemy
     enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
+    #print('TESTE !',tabuleiro[coorAction[0]][coorAction[1]])
     if yDirection == 'UP':
         if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]-1] == enemyPiece:
             return True
@@ -46,6 +49,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
                     print('Não é possivel esse ataque!')
+                    return 0
 
         else:
             coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
@@ -54,6 +58,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
                     print('Não é possivel esse ataque!')
+                    return 0
 
     else:
         if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
@@ -63,6 +68,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
                     print('Não é possivel esse ataque!')
+                    return 0
         else:
             coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]-1]
             if hasEnemyLeft(coorThisPiece,coorEnemy,tabuleiro,'UP'):
@@ -70,10 +76,12 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
                     print('Não é possivel esse ataque!')
+                    return 0
+    return 1
 
 def isEmptyPosition(coordenate,tabuleiro):
     return tabuleiro[coordenate[0]][coordenate[1]] == ' '
 
 def isValidPosition(coordenate):
     y =  coordenate[1]
-    return not ((y - 1) < 0 or (y + 1) > 7)
+    return y >= 0 or y <= 7
