@@ -10,26 +10,13 @@ def getDirectionHorizontalMoviment(coordenateThisPiece, coordenateAction):
         else:
             return 'LEFT'
 
-def hasEnemyRight(coorThisPiece, coorAction, tabuleiro, yDirection):
+def hasEnemy(coorThisPiece, coorAction, tabuleiro):
 #coor action é a cordenada em si do enemy
-    enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
-    if yDirection == 'UP':
-        if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]+1] == enemyPiece:
-            return True
-    else:
-        if tabuleiro[coorThisPiece[0]+1][coorThisPiece[1]+1] == enemyPiece:
-            return True
-    return False
-
-def hasEnemyLeft(coorThisPiece, coorAction, tabuleiro, yDirection):
-#coor action é a cordenada em si do enemy
-    enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
-    #print('TESTE !',tabuleiro[coorAction[0]][coorAction[1]])
-    if yDirection == 'UP':
-        if tabuleiro[coorThisPiece[0]-1][coorThisPiece[1]-1] == enemyPiece:
-            return True
-    else:
-        if tabuleiro[coorThisPiece[0]+1][coorThisPiece[1]-1] == enemyPiece:
+    if isValidPosition(coorAction):
+        print('ASDUASD:',coorAction, isValidPosition([3,8]),isValidPosition([8,3]))
+        enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
+        thisPiece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]] 
+        if thisPiece != enemyPiece and enemyPiece != ' ':
             return True
     return False
 
@@ -44,7 +31,8 @@ def attack(coorThisPiece, coorAction,tabuleiro):
     if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
         if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
             coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
-            if hasEnemyRight(coorThisPiece,coorEnemy,tabuleiro,'DOWN'):
+            print('VEIO AQUI',coorThisPiece,coorEnemy,hasEnemy(coorThisPiece,coorEnemy,tabuleiro))
+            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                 if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
@@ -53,7 +41,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
 
         else:
             coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
-            if hasEnemyLeft(coorThisPiece,coorEnemy,tabuleiro,'DOWN'):
+            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                 if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
@@ -63,7 +51,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
     else:
         if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
             coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
-            if hasEnemyRight(coorThisPiece,coorEnemy,tabuleiro,'UP'):
+            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                 if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
@@ -71,7 +59,7 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     return 0
         else:
             coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]-1]
-            if hasEnemyLeft(coorThisPiece,coorEnemy,tabuleiro,'UP'):
+            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                 if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                     replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                 else:
@@ -83,5 +71,6 @@ def isEmptyPosition(coordenate,tabuleiro):
     return tabuleiro[coordenate[0]][coordenate[1]] == ' '
 
 def isValidPosition(coordenate):
-    y =  coordenate[1]
-    return y >= 0 or y <= 7
+    x = coordenate[0]
+    y = coordenate[1]
+    return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
