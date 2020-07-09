@@ -48,10 +48,10 @@ def isValidAttackWhitePieceToBack(x,y,tabuleiro):
 
     if tabuleiro[x][y] == 'P':
         if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightFront():
+            if isRightFront(x,y,tabuleiro):
                 #direita
                 result = True
-            elif isLeftFront():
+            elif isLeftFront(x,y,tabuleiro):
                 #esquerda
                 result = True
         
@@ -81,6 +81,6 @@ def isRightBack(x,y,tabuleiro):
     else:
         return False
 
-
-def attack(coordenateThisPiece, coordenateEnemyPiece, tabuleiro):
+def attack(xlinha, ycoluna, tabuleiro):
+    
     return 'NADA AINDA';

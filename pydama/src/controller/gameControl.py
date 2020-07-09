@@ -95,7 +95,6 @@ def getCoordenadas():
         boolIsValidChar = isValidCharInput(x)
 
     x = convertCharCoordenateToNumber(x)
-    
     y = int(input("Digite a coluna(0-7)"))
     boolIsValidNumber = isValidNumberInput(y)
 

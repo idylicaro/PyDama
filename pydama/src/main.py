@@ -10,7 +10,7 @@ presentation.display(tabuleiro)
 
 print('Qual que movimentar')
 gameControl.getCoordenadas()
-
+'''
 y = qual casa vc quer mover ou ataca
 
 se a casa e vc ta movendo é vazia:
@@ -20,3 +20,4 @@ else:
         ATAQUEPRETA()
     ELSE:
         ataqueBranca()
+'''
