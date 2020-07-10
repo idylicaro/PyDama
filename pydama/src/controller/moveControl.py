@@ -4,12 +4,9 @@ def move(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     if isValidMove(coorThisPiece,coorToMove,tabuleiro):
         replaceMove(coorThisPiece, coorToMove, tabuleiro)
+        return True
+    return False
     
-    # [4,2] para [5,1]
-    # se ta vazio  (V)
-    # se a quantidade de casas que ele ta andando é um (V) 
-    # se ta em diagonal 
-    # se o movimento é valido (V)
 
 def replaceMove(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]

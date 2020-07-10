@@ -89,7 +89,7 @@ while (player1Score != 0 or player2Score != 0):
             
         QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
         
-
+    coorPlayer = coorAction
     lastPlayerPiece = tabuleiro[coorPlayer[0]][coorPlayer[1]]
     turno = turno + 1
 
