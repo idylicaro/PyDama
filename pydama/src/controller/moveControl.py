@@ -2,7 +2,6 @@ from controller import attackControl, gameControl
 
 def move(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
-    print("moises cabra macho")
     if isValidMove(coorThisPiece,coorToMove,tabuleiro):
         replaceMove(coorThisPiece, coorToMove, tabuleiro)
     
@@ -14,7 +13,7 @@ def move(coorThisPiece, coorToMove, tabuleiro):
 
 def replaceMove(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
-    tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ''
+    tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
     tabuleiro[coorToMove[0]][coorToMove[1]] = piece
 
 
@@ -25,14 +24,14 @@ def isValidAmountMove(coorThisPiece, coorToMove):
 def isDiagonal(coorThisPiece,coorToMove):
     x = coorThisPiece[0] - coorToMove[0] == 1 or coorThisPiece[0] - coorToMove[0] == -1
     y = coorThisPiece[1] - coorToMove[1] == 1 or coorThisPiece[1] - coorToMove[1] == -1
-    return 
+    return x and y
 
 def isValidMove(coorThisPiece,coorToMove,tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     if piece == 'P':
         if attackControl.isEmptyPosition(coorToMove,tabuleiro):
             if isValidAmountMove(coorThisPiece,coorToMove):
-                if coorThisPiece[0] > coorToMove[0]: # if go to front 
+                if coorThisPiece[0] > coorToMove[0]: # if go to front
                     if isDiagonal(coorThisPiece,coorToMove):
                         return True
                     else:
@@ -46,7 +45,7 @@ def isValidMove(coorThisPiece,coorToMove,tabuleiro):
     else:
         if attackControl.isEmptyPosition(coorToMove,tabuleiro):
             if isValidAmountMove(coorThisPiece,coorToMove):
-                if coorThisPiece[0] < coorToMove[0]: # if go to front 
+                if coorThisPiece[0] < coorToMove[0]: # if go to front
                     if isDiagonal(coorThisPiece,coorToMove):
                         return True
                     else:
