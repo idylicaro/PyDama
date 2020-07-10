@@ -12,13 +12,14 @@ player1Score = 12
 player2Score = 12
 currentPlayer  = ''
 lastPlayerPiece = 'P'
+quantidadeDePecaComidaNoRound = 0 
 
 tabuleiro = gameControl.initializeTabuleiro()
-tabuleiro[2][3] = 'B' 
-tabuleiro[3][4] = 'P'
-tabuleiro[4][5] = ' '
-tabuleiro[2][7] = ' '
-tabuleiro[3][6] = 'P'
+#tabuleiro[2][3] = 'B' 
+#tabuleiro[3][4] = 'P'
+#tabuleiro[4][5] = ' '
+#tabuleiro[2][7] = ' '
+#tabuleiro[3][6] = 'P'
 
 while (player1Score != 0 or player2Score != 0):
     print('::::::::::: Turno {} :::::::::::'.format(turno))
@@ -43,25 +44,24 @@ while (player1Score != 0 or player2Score != 0):
     print('Onde deseja colocar sua peça?')
     coorAction = gameControl.getCoordenadas()
     
-    QuantidadePeçaComida = -1 #retorno do ataque
+    QuantidadePecaComida = -1 #retorno do ataque
 
-    
     moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
     if not moveSuccess :
-            QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+            QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+            quantidadeDePecaComidaNoRound += QuantidadePecaComida
     
-    while moveSuccess == False and (QuantidadePeçaComida == 0):
-        print(moveSuccess, QuantidadePeçaComida)
-        print('QUARENTENA')
+    while moveSuccess == False and (QuantidadePecaComida == 0):
         presentation.display(tabuleiro)
         print('Tente um movimento valido!')
         print('Onde deseja colocar sua peça?')
         coorAction = gameControl.getCoordenadas()
         moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
         if not moveSuccess :
-            QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+            QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+            quantidadeDePecaComidaNoRound += QuantidadePecaComida
     
-    while QuantidadePeçaComida != 0 and not moveSuccess:
+    while QuantidadePecaComida != 0 and not moveSuccess:
         coorPlayer = coorAction
         
         if (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]-1],tabuleiro)
@@ -98,11 +98,8 @@ while (player1Score != 0 or player2Score != 0):
             print("Não há mais ataque encadeado para ser realizado!")
             break
             
-        QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
-        
-    coorPlayer = coorAction
-    lastPlayerPiece = tabuleiro[coorPlayer[0]][coorPlayer[1]]
-    turno = turno + 1
+        QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+        quantidadeDePecaComidaNoRound += QuantidadePecaComida
 
 def getPiece(coordenate,tabuleiro):
     return tabuleiro[coordenate[0]][coordenate[1]]
