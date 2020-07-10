@@ -3,6 +3,7 @@ import view , controller, os
 from view import presentation
 from controller import gameControl
 from controller import attackControl 
+from controller import moveControl
 
 turno = 0
 player1Piece = 'B'
@@ -39,11 +40,16 @@ while (player1Score != 0 or player2Score != 0):
         print('Qual peça {} deseja movimentar?'.format(currentPlayer))
         coorPlayer = gameControl.getCoordenadas()
 
-
     print('Onde deseja colocar sua peça?')
     coorAction = gameControl.getCoordenadas()
+    
+    QuantidadePeçaComida = 0 #retorno do ataque
 
-    QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    if moveControl.isValidAmountMove(coorPlayer,coorAction):
+        moveControl.move(coorPlayer,coorAction,tabuleiro)
+    else:
+        QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    
     while QuantidadePeçaComida != 0:
         coorPlayer = coorAction
         
@@ -86,11 +92,6 @@ while (player1Score != 0 or player2Score != 0):
 
     lastPlayerPiece = tabuleiro[coorPlayer[0]][coorPlayer[1]]
     turno = turno + 1
-
-# BRANCA PARA BAIXO DIEIRA (VERIFICADO)
-# PRETA PARA CIMA ESQUERDA (VERIFICADO)
-# BRANCA PARA BAIXO ESQUERDA (VERIFICADO)
-# PRETA PARA CIMA direita (VERIFICADO)
 
 def getPiece(coordenate,tabuleiro):
     return tabuleiro[coordenate[0]][coordenate[1]]

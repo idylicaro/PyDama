@@ -72,3 +72,4 @@ def isValidPosition(coordenate):
     x = coordenate[0]
     y = coordenate[1]
     return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
+
