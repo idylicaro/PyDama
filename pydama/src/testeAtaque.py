@@ -43,14 +43,25 @@ while (player1Score != 0 or player2Score != 0):
     print('Onde deseja colocar sua peça?')
     coorAction = gameControl.getCoordenadas()
     
-    QuantidadePeçaComida = 0 #retorno do ataque
+    QuantidadePeçaComida = -1 #retorno do ataque
 
-    if moveControl.isValidAmountMove(coorPlayer,coorAction):
-        moveControl.move(coorPlayer,coorAction,tabuleiro)
-    else:
-        QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
     
-    while QuantidadePeçaComida != 0:
+    moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+    if not moveSuccess :
+            QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    
+    while moveSuccess == False and (QuantidadePeçaComida == 0):
+        print(moveSuccess, QuantidadePeçaComida)
+        print('QUARENTENA')
+        presentation.display(tabuleiro)
+        print('Tente um movimento valido!')
+        print('Onde deseja colocar sua peça?')
+        coorAction = gameControl.getCoordenadas()
+        moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+        if not moveSuccess :
+            QuantidadePeçaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
+    
+    while QuantidadePeçaComida != 0 and not moveSuccess:
         coorPlayer = coorAction
         
         if (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]-1],tabuleiro)

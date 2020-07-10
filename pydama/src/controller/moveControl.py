@@ -1,12 +1,10 @@
 from controller import attackControl, gameControl
 
 def move(coorThisPiece, coorToMove, tabuleiro):
-    piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     if isValidMove(coorThisPiece,coorToMove,tabuleiro):
         replaceMove(coorThisPiece, coorToMove, tabuleiro)
         return True
     return False
-    
 
 def replaceMove(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
