@@ -17,7 +17,7 @@ quantidadeDePecaComidaNoRound = 0
 
 tabuleiro = gameControl.initializeTabuleiro()
 tabuleiro[0][1] = ' ' 
-tabuleiro[1][0] = 'P'
+tabuleiro[1][0] = '$'
 tabuleiro[4][5] = ' '
 tabuleiro[2][7] = ' '
 tabuleiro[3][6] = 'P'
@@ -56,7 +56,11 @@ while (player1Score != 0 or player2Score != 0):
     
     QuantidadePecaComida = -1 #retorno do ataque
 
-    moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+    print('Entrou Aqui')
+    if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$':
+        print(damaPiece.moveDama(coorPlayer, coorAction,tabuleiro))
+
+    moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro) 
     if not moveSuccess :
             QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
             quantidadeDePecaComidaNoRound += QuantidadePecaComida
@@ -104,7 +108,7 @@ while (player1Score != 0 or player2Score != 0):
             print('Onde deseja colocar sua peça?')
             coorAction = gameControl.getCoordenadas()
         else:
-            os.system('cls')
+            #os.system('cls')
             print()
             print("Não há mais ataque encadeado para ser realizado!")
             break
@@ -112,7 +116,6 @@ while (player1Score != 0 or player2Score != 0):
     
     for i in range (0,8,7):
         for j in range(0,8):
-            print('[',str(i),str(j),']')
             damaPiece.isLastField([i,j], tabuleiro)
             
 
