@@ -9,14 +9,13 @@ def isLastField(coor, tabuleiro):
         if coor[0] == 0:
             replace(coor,tabuleiro)
     
-
 def replace(coorThisPiece, tabuleiro):
     if tabuleiro[coorThisPiece[0]][coorThisPiece[1]] == 'B': #White
         tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = '#'
     elif tabuleiro[coorThisPiece[0]][coorThisPiece[1]] == 'P': #Black
         tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = '$'
 
-def moveDama(coorThisPiece, coorToMove, tabuleiro):
+def isValidDamaMove(coorThisPiece, coorToMove, tabuleiro):
     thisPiece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     friend = 'B' if thisPiece == '#' else 'P'
 
@@ -53,7 +52,6 @@ def moveDama(coorThisPiece, coorToMove, tabuleiro):
             i =coorThisPiece[0] + 1 # LINHAS
             j =coorThisPiece[1] + 1# COLUNAS
             while True:
-                
                 # Condição de parada
                 if i == coorToMove[0]+1 and j == coorToMove[1]+1:
                     break
@@ -128,5 +126,63 @@ def moveDama(coorThisPiece, coorToMove, tabuleiro):
                         continue
                     else:
                         return False
-        
     return True
+
+
+def cleanDiagonalIntervalAndReplace(coorThisPiece, coorToMove, tabuleiro):
+    
+    if (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'RIGHT'
+    and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'UP'):
+        i =coorThisPiece[0] - 1
+        j =coorThisPiece[1] + 1
+        while True:
+            # Condição de parada
+            if i == coorToMove[0]-1 and j == coorToMove[1]+1:
+                break
+
+            tabuleiro[i][j] = ' '
+            i-=1    
+            j+=1
+    
+    elif (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'RIGHT'
+    and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'DOWN'):
+        i =coorThisPiece[0] + 1 # LINHAS
+        j =coorThisPiece[1] + 1# COLUNAS
+        while True:
+            # Condição de parada
+            if i == coorToMove[0]+1 and j == coorToMove[1]+1:
+                break
+            tabuleiro[i][j] = ' '
+            i+=1
+            j+=1
+            
+    elif (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'Left'
+    and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'UP'):
+        i =coorThisPiece[0]
+        j =coorThisPiece[1]
+        while True:
+            # Condição de parada
+            if i == coorToMove[0]-1 and j == coorToMove[1]-1:
+                break
+            tabuleiro[i][j] = ' '
+            i-=1
+            j-=1
+            
+    elif (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'Left'
+    and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'DOWN'):
+        i =coorThisPiece[0]
+        j =coorThisPiece[1]
+        while True:
+            # Condição de parada
+            if i == coorToMove[0]+1 and j == coorToMove[1]-1:
+                break
+            tabuleiro[i][j] = ' '
+            i+=1
+            j-=1
+    replacePiece(coorThisPiece, coorToMove, tabuleiro)
+    
+                
+def replacePiece(coorThisPiece, coorToMove, tabuleiro):
+    piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
+    tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
+    tabuleiro[coorToMove[0]][coorToMove[1]] = piece

@@ -18,7 +18,7 @@ quantidadeDePecaComidaNoRound = 0
 tabuleiro = gameControl.initializeTabuleiro()
 tabuleiro[0][1] = ' ' 
 tabuleiro[1][0] = '$'
-tabuleiro[4][5] = ' '
+tabuleiro[2][1] = 'B'
 tabuleiro[2][7] = ' '
 tabuleiro[3][6] = 'P'
 
@@ -56,11 +56,13 @@ while (player1Score != 0 or player2Score != 0):
     
     QuantidadePecaComida = -1 #retorno do ataque
 
-    print('Entrou Aqui')
-    if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$':
-        print(damaPiece.moveDama(coorPlayer, coorAction,tabuleiro))
+    moveSuccess = False
+    if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$' or tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#' :
+        moveSuccess = damaPiece.isValidDamaMove(coorPlayer, coorAction,tabuleiro)
+        if moveSuccess: damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
+    else:
+        moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro) 
 
-    moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro) 
     if not moveSuccess :
             QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
             quantidadeDePecaComidaNoRound += QuantidadePecaComida
@@ -71,7 +73,13 @@ while (player1Score != 0 or player2Score != 0):
         print('Tente um movimento valido!')
         print('Onde deseja colocar sua peça?')
         coorAction = gameControl.getCoordenadas()
-        moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+
+        if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$' or tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#' :
+            moveSuccess = damaPiece.isValidDamaMove(coorPlayer, coorAction,tabuleiro)
+            if moveSuccess: damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
+        else: 
+            moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+
         if not moveSuccess :
             QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
             quantidadeDePecaComidaNoRound += QuantidadePecaComida
