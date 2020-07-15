@@ -1,6 +1,7 @@
 import os
 
 def initializeTabuleiro():
+    """ Start do tabuleiro, iniciando todas peças """
     tabuleiro =[[0,0,0,0,0,0,0,0], 
                 [0,0,0,0,0,0,0,0], 
                 [0,0,0,0,0,0,0,0], 
@@ -19,6 +20,7 @@ def initializeTabuleiro():
     return tabuleiro
 
 def initializePlayerColorBlack(tabuleiro):
+    """ Aloca as peças pretas """
     for i in range(7,4,-1):  
         for j in range(0,8):
             if i % 2!=0:
@@ -33,6 +35,7 @@ def initializePlayerColorBlack(tabuleiro):
                     tabuleiro[i][j] = ' '
         
 def initializePlayerColorWhite(tabuleiro):
+    """ Aloca as peças brancas """
     for i in range(0,3):  
         for j in range(0,8):
             if i % 2!=0:
@@ -49,6 +52,7 @@ def initializePlayerColorWhite(tabuleiro):
 
 
 def convertCharCoordenateToNumber(caracter):
+    """ Converte a entrada em char para respectivo indice no tabuleiro """
     if(caracter == 'A'):
         return 0
     elif(caracter == 'B'):
@@ -69,18 +73,21 @@ def convertCharCoordenateToNumber(caracter):
         return -1
 
 def isValidCharInput(inputChar):
+    """ Verifica o intervalo de entrada char para a coordenada """
     if(ord(inputChar)>=65 and ord(inputChar)<=72 ):
         return True
     else:
         return False
 
 def isValidNumberInput(inputNumber):
+    """ Verifica o intervalo de entrada int para a coordenada  """
     if inputNumber>=0 and inputNumber<=7:
         return True
     else:
         return False
 
 def getCoordenadas():
+    """ Retorna as coordenadas com seus respectivos tratamentos """
     coordenadas = [-1,-1]
     boolIsValidChar = False
     boolIsValidNumber = False

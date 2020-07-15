@@ -1,17 +1,19 @@
 def getDirectionVerticalMoviment(coordenateThisPiece, coordenateAction):
+    """ Retorna a direção Vertical da movimentação """
     if coordenateThisPiece[0] < coordenateAction[0]:
         return 'DOWN'
     else:
         return 'UP'
 
 def getDirectionHorizontalMoviment(coordenateThisPiece, coordenateAction):
-        if coordenateThisPiece[1] < coordenateAction[1]:
-            return 'RIGHT'
-        else:
-            return 'LEFT'
+    """ Retorna a direção Horizontal da movimentação """
+    if coordenateThisPiece[1] < coordenateAction[1]:
+        return 'RIGHT'
+    else:
+        return 'LEFT'
 
 def hasEnemy(coorThisPiece, coorAction, tabuleiro):
-#coor action é a cordenada em si do enemy
+    """ Verifica se há um inimigo no tabuleiro na coordenada """
     if isValidPosition(coorAction):
         enemyPiece= tabuleiro[coorAction[0]][coorAction[1]]
         thisPiece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]] 
@@ -20,13 +22,14 @@ def hasEnemy(coorThisPiece, coorAction, tabuleiro):
     return False
 
 def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
+    """ Realoca a peça atual para a coordenada da movimentação """
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
     tabuleiro[coorEnemy[0]][coorEnemy[1]] = ' '
     tabuleiro[coorAfter[0]][coorAfter[1]] = piece
     
 def attack(coorThisPiece, coorAction,tabuleiro): 
-
+    """ Retorna 0 caso o ataque seja invalido, retorna 1 caso seja valido e tambem faz a realocação da peça """
     if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
         if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
             coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
@@ -66,9 +69,11 @@ def attack(coorThisPiece, coorAction,tabuleiro):
     return 1
 
 def isEmptyPosition(coordenate,tabuleiro):
+    """ Verifica se é uma casa vazia """
     return tabuleiro[coordenate[0]][coordenate[1]] == ' '
 
 def isValidPosition(coordenate):
+    """ Verifica se é uma casa valida dentro do tabuleiro """
     x = coordenate[0]
     y = coordenate[1]
     return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)

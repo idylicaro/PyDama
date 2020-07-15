@@ -2,6 +2,7 @@ import controller
 from controller import attackControl
 
 def isLastField(coor, tabuleiro):
+    """ Verifica coordenada se é valido para a promoção da peça para dama """
     if tabuleiro[coor[0]][coor[1]] == 'B':
         if coor[0] == 7:
             replace(coor,tabuleiro)
@@ -10,12 +11,14 @@ def isLastField(coor, tabuleiro):
             replace(coor,tabuleiro)
     
 def replace(coorThisPiece, tabuleiro):
+    """ Troca da peça para a dama """
     if tabuleiro[coorThisPiece[0]][coorThisPiece[1]] == 'B': #White
         tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = '#'
     elif tabuleiro[coorThisPiece[0]][coorThisPiece[1]] == 'P': #Black
         tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = '$'
 
 def isValidDamaMove(coorThisPiece, coorToMove, tabuleiro):
+    """ Verifica se a movimentação da dama é valida """
     thisPiece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     friend = 'B' if thisPiece == '#' else 'P'
 
@@ -130,7 +133,7 @@ def isValidDamaMove(coorThisPiece, coorToMove, tabuleiro):
 
 
 def cleanDiagonalIntervalAndReplace(coorThisPiece, coorToMove, tabuleiro):
-    
+    """ Faz limpa o intervalo da movimentaçao da dama e realoca a mesma """
     if (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'RIGHT'
     and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'UP'):
         i =coorThisPiece[0] - 1
@@ -183,6 +186,7 @@ def cleanDiagonalIntervalAndReplace(coorThisPiece, coorToMove, tabuleiro):
     
                 
 def replacePiece(coorThisPiece, coorToMove, tabuleiro):
+    """ Realoca a peça para a coordenada desejada """
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
     tabuleiro[coorToMove[0]][coorToMove[1]] = piece

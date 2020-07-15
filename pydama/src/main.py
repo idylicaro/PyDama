@@ -16,11 +16,6 @@ lastPlayerPiece = 'P'
 quantidadeDePecaComidaNoRound = 0 
 
 tabuleiro = gameControl.initializeTabuleiro()
-tabuleiro[0][1] = ' ' 
-tabuleiro[1][0] = 'P'
-tabuleiro[4][5] = ' '
-tabuleiro[2][7] = ' '
-tabuleiro[3][6] = 'P'
 
 while (player1Score != 0 or player2Score != 0):
     print('::::::::::: Turno {} :::::::::::'.format(turno))
@@ -44,8 +39,12 @@ while (player1Score != 0 or player2Score != 0):
         coorPlayer = gameControl.getCoordenadas()
         isBlankPiece = True if tabuleiro[coorPlayer[0]][coorPlayer[1]] == ' ' else False
 
-    # Esse while ele não deixa o usuario jogar duas vezes seguidas
-    while lastPlayerPiece == tabuleiro[coorPlayer[0]][coorPlayer[1]]:
+    # Esse while ele não deixa o usuario selecionar a mesmo time duas vezes em rounds consecutivos
+    while (lastPlayerPiece == tabuleiro[coorPlayer[0]][coorPlayer[1]]
+        or (lastPlayerPiece == '$' and tabuleiro[coorPlayer[0]][coorPlayer[1]] == 'P')
+        or (lastPlayerPiece == '#' and tabuleiro[coorPlayer[0]][coorPlayer[1]] == 'B')
+        or (lastPlayerPiece == 'B' and tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#')
+        or (lastPlayerPiece == 'P' and tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$')):
         print('Selecione a peça do turno!({})'.format(currentPlayer))
         print('Qual peça {} deseja movimentar?'.format(currentPlayer))
         coorPlayer = gameControl.getCoordenadas()
@@ -56,22 +55,36 @@ while (player1Score != 0 or player2Score != 0):
     
     QuantidadePecaComida = -1 #retorno do ataque
 
-    moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+    #Escolha de movimentação ou ataque de acordo com o tipo de jogada e peça
+    moveSuccess = False
+    if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$' or tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#' :
+        moveSuccess = damaPiece.isValidDamaMove(coorPlayer, coorAction,tabuleiro)
+        if moveSuccess: damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
+    else:
+        moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro) 
+
     if not moveSuccess :
             QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
             quantidadeDePecaComidaNoRound += QuantidadePecaComida
-            # moveSuccess = moveDama()
-    
+
+    #em caso de erro na movimentação ou ataque ele entra nesse while assim obrigando o jogador fazer uma jogada valida
     while moveSuccess == False and (QuantidadePecaComida == 0):
         presentation.display(tabuleiro)
         print('Tente um movimento valido!')
         print('Onde deseja colocar sua peça?')
         coorAction = gameControl.getCoordenadas()
-        moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+
+        if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$' or tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#' :
+            moveSuccess = damaPiece.isValidDamaMove(coorPlayer, coorAction,tabuleiro)
+            if moveSuccess: damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
+        else: 
+            moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro)
+
         if not moveSuccess :
             QuantidadePecaComida = attackControl.attack(coorPlayer,coorAction,tabuleiro)
             quantidadeDePecaComidaNoRound += QuantidadePecaComida
     
+    # Ataques consecutivos 
     while QuantidadePecaComida != 0 and not moveSuccess:
         coorPlayer = coorAction
         
@@ -110,9 +123,9 @@ while (player1Score != 0 or player2Score != 0):
             break
         QuantidadePecaComida = attackControl.attack(coorPlayer, coorAction,tabuleiro)
     
+    # a cada round ele verifica se nenhuma peça precisa de promoção
     for i in range (0,8,7):
         for j in range(0,8):
-            print('[',str(i),str(j),']')
             damaPiece.isLastField([i,j], tabuleiro)
             
 
@@ -121,4 +134,5 @@ while (player1Score != 0 or player2Score != 0):
     turno += 1
 
 def getPiece(coordenate,tabuleiro):
+    """ Retorna a peça na coordenada """
     return tabuleiro[coordenate[0]][coordenate[1]]
