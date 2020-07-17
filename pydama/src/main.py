@@ -60,7 +60,8 @@ while (player1Score != 0 or player2Score != 0):
     moveSuccess = False
     if tabuleiro[coorPlayer[0]][coorPlayer[1]] == '$' or tabuleiro[coorPlayer[0]][coorPlayer[1]] == '#' :
         moveSuccess = damaPiece.isValidDamaMove(coorPlayer, coorAction,tabuleiro)
-        if moveSuccess: damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
+        if moveSuccess:
+            damaPiece.cleanDiagonalIntervalAndReplace(coorPlayer,coorAction, tabuleiro)
     else:
         moveSuccess = moveControl.move(coorPlayer,coorAction,tabuleiro) 
 
