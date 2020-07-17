@@ -1,16 +1,14 @@
 def getDirectionVerticalMoviment(coordenateThisPiece, coordenateAction):
     """ Retorna a direção Vertical da movimentação """
     if coordenateThisPiece[0] < coordenateAction[0]:
-        return 'DOWN'
-    else:
-        return 'UP'
+        return 'DOWN'    
+    return 'UP'
 
 def getDirectionHorizontalMoviment(coordenateThisPiece, coordenateAction):
     """ Retorna a direção Horizontal da movimentação """
     if coordenateThisPiece[1] < coordenateAction[1]:
-        return 'RIGHT'
-    else:
-        return 'LEFT'
+        return 'RIGHT'    
+    return 'LEFT'
 
 def hasEnemy(coorThisPiece, coorAction, tabuleiro):
     """ Verifica se há um inimigo no tabuleiro na coordenada """

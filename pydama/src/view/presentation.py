@@ -21,7 +21,8 @@ def display (tabuleiro):
                     print(coloredWhite(tabuleiro[i][j]), end=' ')
         print()
         charCodeInitial += 1
-    print();print()
+    print()
+    print()
 
 def coloredWhite(string):
     return '\x1b[0;30;47m' + string + '\x1b[0m'
