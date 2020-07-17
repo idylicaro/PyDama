@@ -74,17 +74,12 @@ def convertCharCoordenateToNumber(caracter):
 
 def isValidCharInput(inputChar):
     """ Verifica o intervalo de entrada char para a coordenada """
-    if(ord(inputChar)>=65 and ord(inputChar)<=72 ):
-        return True
-    else:
-        return False
+    return (ord(inputChar)>=65 and ord(inputChar)<=72 )
 
 def isValidNumberInput(inputNumber):
     """ Verifica o intervalo de entrada int para a coordenada  """
-    if inputNumber>=0 and inputNumber<=7:
-        return True
-    else:
-        return False
+    return inputNumber>=0 and inputNumber<=7
+        
 
 def getCoordenadas():
     """ Retorna as coordenadas com seus respectivos tratamentos """
