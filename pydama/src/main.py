@@ -1,6 +1,7 @@
 #!python3
-import view , controller, os
+import view
 from view import presentation
+import controller
 from controller import gameControl
 from controller import attackControl 
 from controller import moveControl
