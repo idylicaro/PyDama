@@ -118,7 +118,6 @@ while (player1Score != 0 or player2Score != 0):
             print('Onde deseja colocar sua peça?')
             coorAction = gameControl.getCoordenadas()
         else:
-            os.system('cls')
             print()
             print("Não há mais ataque encadeado para ser realizado!")
             break
