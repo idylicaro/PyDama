@@ -69,7 +69,7 @@ def convertCharCoordenateToNumber(caracter):
         return 6
     elif(caracter == 'H'):
         return 7
-        
+
     return -1
 
 def isValidCharInput(inputChar):
@@ -91,7 +91,6 @@ def getCoordenadas():
     boolIsValidChar = isValidCharInput(x)
 
     while not boolIsValidChar:
-        os.system('cls') #limpar cmd
         print("Digite Corretamente:")
         x = input("Digite a linha(A-H):").upper()
         boolIsValidChar = isValidCharInput(x)
