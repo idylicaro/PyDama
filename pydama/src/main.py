@@ -54,7 +54,7 @@ while (player1Score != 0 or player2Score != 0):
     print('Onde deseja colocar sua peça?')
     coorAction = gameControl.getCoordenadas()
     
-    QuantidadePecaComida = -1 #retorno do ataque
+    QuantidadePecaComida = -1 #retorno do ataque 
 
     #Escolha de movimentação ou ataque de acordo com o tipo de jogada e peça
     moveSuccess = False
@@ -90,7 +90,7 @@ while (player1Score != 0 or player2Score != 0):
     # Ataques consecutivos 
     while QuantidadePecaComida != 0 and not moveSuccess:
         coorPlayer = coorAction
-        
+        # DOWN-LEFT
         if (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]-1],tabuleiro)
             and attackControl.isValidPosition([coorPlayer[0]+2,coorPlayer[1]-2])
             and attackControl.isEmptyPosition([coorPlayer[0]+2,coorPlayer[1]-2],tabuleiro)):
@@ -98,6 +98,7 @@ while (player1Score != 0 or player2Score != 0):
             presentation.display(tabuleiro)
             print('Onde deseja colocar sua peça?')
             coorAction = gameControl.getCoordenadas()
+        # UP-LEFT
         elif (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]-1,coorPlayer[1]-1],tabuleiro)
              and attackControl.isValidPosition([coorPlayer[0]-2,coorPlayer[1]-2])
              and attackControl.isEmptyPosition([coorPlayer[0]-2,coorPlayer[1]-2],tabuleiro)):
@@ -105,6 +106,7 @@ while (player1Score != 0 or player2Score != 0):
             presentation.display(tabuleiro)
             print('Onde deseja colocar sua peça?')
             coorAction = gameControl.getCoordenadas()
+        # Down-RIGTH
         elif (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]+1,coorPlayer[1]+1],tabuleiro)
             and attackControl.isValidPosition([coorPlayer[0]+2,coorPlayer[1]+2])
             and attackControl.isEmptyPosition([coorPlayer[0]+2,coorPlayer[1]+2],tabuleiro)):
@@ -112,6 +114,7 @@ while (player1Score != 0 or player2Score != 0):
             presentation.display(tabuleiro)
             print('Onde deseja colocar sua peça?')
             coorAction = gameControl.getCoordenadas()
+        # UP-RIGTH
         elif (attackControl.hasEnemy(coorPlayer,[coorPlayer[0]-1,coorPlayer[1]+1],tabuleiro)
             and attackControl.isValidPosition([coorPlayer[0]-2,coorPlayer[1]+2])
             and attackControl.isEmptyPosition([coorPlayer[0]-2,coorPlayer[1]+2],tabuleiro)):
