@@ -28,43 +28,35 @@ def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     
 def attack(coorThisPiece, coorAction,tabuleiro): 
     """ Retorna 0 caso o ataque seja invalido, retorna 1 caso seja valido e tambem faz a realocação da peça """
-    if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
-        if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
-            coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
-            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
-                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
-                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
-                else:
-                    print('Não é possivel esse ataque!')
-                    return 0
-
+    if isDiagonal(coorThisPiece,coorAction):    
+        if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
+            if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
+                coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
+                if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
+                    if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                        replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)    
+                        return 1
+            else:
+                coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
+                if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
+                    if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                        replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                        return 1
         else:
-            coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
-            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
-                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
-                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
-                else:
-                    print('Não é possivel esse ataque!')
-                    return 0
-
-    else:
-        if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
-            coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
-            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
-                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
-                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
-                else:
-                    print('Não é possivel esse ataque!')
-                    return 0
-        else:
-            coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]-1]
-            if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
-                if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
-                    replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
-                else:
-                    print('Não é possivel esse ataque!')
-                    return 0
-    return 1
+            if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
+                coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
+                if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
+                    if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                        replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                        return 1
+            else:
+                coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]-1]
+                if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
+                    if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
+                        replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
+                        return 1
+    print('Não é possivel esse ataque!')
+    return 0
 
 def isEmptyPosition(coordenate,tabuleiro):
     """ Verifica se é uma casa vazia """
@@ -75,4 +67,9 @@ def isValidPosition(coordenate):
     x = coordenate[0]
     y = coordenate[1]
     return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
+
+def isDiagonal(coorThisPiece,coorAction):
+    deltaCoorX = coorThisPiece[0] - coorAction[0]
+    deltaCoorY = coorThisPiece[1] - coorAction[1]
+    return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
 

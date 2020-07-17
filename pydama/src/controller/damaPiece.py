@@ -22,8 +22,8 @@ def isValidDamaMove(coorThisPiece, coorToMove, tabuleiro):
     thisPiece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     friend = 'B' if thisPiece == '#' else 'P'
 
-    if coorThisPiece[0] - coorToMove[0] != 0 and coorThisPiece[1] - coorToMove[1] != 0:
-
+    if isDiagonal(coorThisPiece, coorToMove):
+        print('sasuahshau')
         if (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'RIGHT'
         and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'UP'):
             i =coorThisPiece[0] - 1
@@ -190,3 +190,8 @@ def replacePiece(coorThisPiece, coorToMove, tabuleiro):
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
     tabuleiro[coorThisPiece[0]][coorThisPiece[1]] = ' '
     tabuleiro[coorToMove[0]][coorToMove[1]] = piece
+
+def isDiagonal(coorThisPiece, coorToMove):
+    coorXDelta = coorThisPiece[0] - coorToMove[0]
+    coorYDelta = coorThisPiece[1] - coorToMove[1]
+    return coorXDelta != 0 and coorYDelta != 0 and coorXDelta == coorYDelta
