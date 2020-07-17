@@ -69,8 +69,8 @@ def convertCharCoordenateToNumber(caracter):
         return 6
     elif(caracter == 'H'):
         return 7
-    else:
-        return -1
+        
+    return -1
 
 def isValidCharInput(inputChar):
     """ Verifica o intervalo de entrada char para a coordenada """
