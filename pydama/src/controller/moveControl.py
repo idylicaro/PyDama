@@ -33,27 +33,14 @@ def isValidMove(coorThisPiece,coorToMove,tabuleiro):
                 if coorThisPiece[0] > coorToMove[0]: # if go to front
                     if isDiagonal(coorThisPiece,coorToMove):
                         return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
-        else:
-            return False
+                    
     else:
         if attackControl.isEmptyPosition(coorToMove,tabuleiro):
             if isValidAmountMove(coorThisPiece,coorToMove):
                 if coorThisPiece[0] < coorToMove[0]: # if go to front
                     if isDiagonal(coorThisPiece,coorToMove):
                         return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
-        else:
-            return False
+    
+    return False
 
 
