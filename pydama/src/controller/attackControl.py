@@ -36,13 +36,13 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)    
                         return 1
-            else:
+            else: #LEFT
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                         return 1
-        else:
+        else: #UP
             if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
                 coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
