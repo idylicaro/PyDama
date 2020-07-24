@@ -19,6 +19,21 @@ def hasEnemy(coorThisPiece, coorAction, tabuleiro):
             return True
     return False
 
+def isEmptyPosition(coordenate,tabuleiro):
+    """ Verifica se é uma casa vazia """
+    return tabuleiro[coordenate[0]][coordenate[1]] == ' '
+
+def isValidPosition(coordenate):
+    """ Verifica se é uma casa valida dentro do tabuleiro """
+    x = coordenate[0]
+    y = coordenate[1]
+    return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
+
+def isDiagonal(coorThisPiece,coorAction):
+    deltaCoorX = coorThisPiece[0] - coorAction[0]
+    deltaCoorY = coorThisPiece[1] - coorAction[1]
+    return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
+
 def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     """ Realoca a peça atual para a coordenada da movimentação """
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
@@ -58,18 +73,4 @@ def attack(coorThisPiece, coorAction,tabuleiro):
     print('Não é possivel esse ataque!')
     return 0
 
-def isEmptyPosition(coordenate,tabuleiro):
-    """ Verifica se é uma casa vazia """
-    return tabuleiro[coordenate[0]][coordenate[1]] == ' '
-
-def isValidPosition(coordenate):
-    """ Verifica se é uma casa valida dentro do tabuleiro """
-    x = coordenate[0]
-    y = coordenate[1]
-    return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
-
-def isDiagonal(coorThisPiece,coorAction):
-    deltaCoorX = coorThisPiece[0] - coorAction[0]
-    deltaCoorY = coorThisPiece[1] - coorAction[1]
-    return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
 
