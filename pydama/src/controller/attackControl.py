@@ -72,5 +72,3 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                         return 1
     print('Não é possivel esse ataque!')
     return 0
-
-
