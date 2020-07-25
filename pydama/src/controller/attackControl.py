@@ -28,15 +28,20 @@ def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     
 def attack(coorThisPiece, coorAction,tabuleiro): 
     """ Retorna 0 caso o ataque seja invalido, retorna 1 caso seja valido e tambem faz a realocação da peça """
-    if isDiagonal(coorThisPiece,coorAction):    
+    print('COORTHISPIECE:',coorThisPiece,'CoorAction',coorAction)
+    if isDiagonal(coorThisPiece,coorAction):
+        print('AQUI KANS')
         if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
+            print('AQUI KANS0')
             if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
+                print('AQUI KANS1')
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)    
                         return 1
             else:
+                print('AQUI KANS2')
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
@@ -69,7 +74,7 @@ def isValidPosition(coordenate):
     return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
 
 def isDiagonal(coorThisPiece,coorAction):
-    deltaCoorX = coorThisPiece[0] - coorAction[0]
-    deltaCoorY = coorThisPiece[1] - coorAction[1]
+    deltaCoorX = abs(coorThisPiece[0] - coorAction[0])
+    deltaCoorY = abs(coorThisPiece[1] - coorAction[1])
     return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
 

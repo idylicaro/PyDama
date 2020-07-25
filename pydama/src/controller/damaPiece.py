@@ -192,6 +192,6 @@ def replacePiece(coorThisPiece, coorToMove, tabuleiro):
     tabuleiro[coorToMove[0]][coorToMove[1]] = piece
 
 def isDiagonal(coorThisPiece, coorToMove):
-    coorXDelta = coorThisPiece[0] - coorToMove[0]
-    coorYDelta = coorThisPiece[1] - coorToMove[1]
+    coorXDelta = abs(coorThisPiece[0] - coorToMove[0])
+    coorYDelta = abs(coorThisPiece[1] - coorToMove[1])
     return coorXDelta != 0 and coorYDelta != 0 and coorXDelta == coorYDelta
