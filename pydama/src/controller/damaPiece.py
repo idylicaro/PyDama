@@ -23,7 +23,6 @@ def isValidDamaMove(coorThisPiece, coorToMove, tabuleiro):
     friend = 'B' if thisPiece == '#' else 'P'
 
     if isDiagonal(coorThisPiece, coorToMove):
-        print('sasuahshau')
         if (attackControl.getDirectionHorizontalMoviment(coorThisPiece, coorToMove) == 'RIGHT'
         and attackControl.getDirectionVerticalMoviment(coorThisPiece, coorToMove) == 'UP'):
             i =coorThisPiece[0] - 1
