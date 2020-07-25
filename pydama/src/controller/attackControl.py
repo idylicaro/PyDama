@@ -19,6 +19,21 @@ def hasEnemy(coorThisPiece, coorAction, tabuleiro):
             return True
     return False
 
+def isEmptyPosition(coordenate,tabuleiro):
+    """ Verifica se é uma casa vazia """
+    return tabuleiro[coordenate[0]][coordenate[1]] == ' '
+
+def isValidPosition(coordenate):
+    """ Verifica se é uma casa valida dentro do tabuleiro """
+    x = coordenate[0]
+    y = coordenate[1]
+    return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
+
+def isDiagonal(coorThisPiece,coorAction):
+    deltaCoorX = abs(coorThisPiece[0] - coorAction[0])
+    deltaCoorY = abs(coorThisPiece[1] - coorAction[1])
+    return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
+
 def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     """ Realoca a peça atual para a coordenada da movimentação """
     piece = tabuleiro[coorThisPiece[0]][coorThisPiece[1]]
@@ -28,20 +43,15 @@ def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     
 def attack(coorThisPiece, coorAction,tabuleiro): 
     """ Retorna 0 caso o ataque seja invalido, retorna 1 caso seja valido e tambem faz a realocação da peça """
-    print('COORTHISPIECE:',coorThisPiece,'CoorAction',coorAction)
     if isDiagonal(coorThisPiece,coorAction):
-        print('AQUI KANS')
         if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
-            print('AQUI KANS0')
             if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
-                print('AQUI KANS1')
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)    
                         return 1
             else:
-                print('AQUI KANS2')
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
@@ -63,18 +73,4 @@ def attack(coorThisPiece, coorAction,tabuleiro):
     print('Não é possivel esse ataque!')
     return 0
 
-def isEmptyPosition(coordenate,tabuleiro):
-    """ Verifica se é uma casa vazia """
-    return tabuleiro[coordenate[0]][coordenate[1]] == ' '
-
-def isValidPosition(coordenate):
-    """ Verifica se é uma casa valida dentro do tabuleiro """
-    x = coordenate[0]
-    y = coordenate[1]
-    return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
-
-def isDiagonal(coorThisPiece,coorAction):
-    deltaCoorX = abs(coorThisPiece[0] - coorAction[0])
-    deltaCoorY = abs(coorThisPiece[1] - coorAction[1])
-    return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
 
