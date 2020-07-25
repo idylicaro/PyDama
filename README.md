@@ -7,7 +7,7 @@ This is a project created for a discipline of university,  because of this, we w
 ## The team:
 - [Moisés júnio](https://github.com/junio10)
 - [Jessica Portilio](https://github.com/JessicaPortilio)
-- [Guilherme](https://github.com/JessicaPortilio)
-- [Filipe](https://github.com/Fill12)
-- [Lucas](https://github.com/LucasAndrey20)
-- [Ikaruz](https://github.com/Ikaruzdelta0)
+- [Guilherme Santos](https://github.com/JessicaPortilio)
+- [Filipe de Carvalho](https://github.com/Fill12)
+- [Lucas Andrey](https://github.com/LucasAndrey20)
+- [Icaro Gabriel](https://github.com/Ikaruzdelta0)
