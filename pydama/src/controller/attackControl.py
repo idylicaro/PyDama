@@ -30,8 +30,8 @@ def isValidPosition(coordenate):
     return (y >= 0 and y <= 7) and (x >= 0 and x <= 7)
 
 def isDiagonal(coorThisPiece,coorAction):
-    deltaCoorX = coorThisPiece[0] - coorAction[0]
-    deltaCoorY = coorThisPiece[1] - coorAction[1]
+    deltaCoorX = abs(coorThisPiece[0] - coorAction[0])
+    deltaCoorY = abs(coorThisPiece[1] - coorAction[1])
     return deltaCoorX != 0 and deltaCoorY != 0 and deltaCoorX == deltaCoorY
 
 def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
@@ -43,7 +43,7 @@ def replacePiece(coorThisPiece,coorEnemy,coorAfter,tabuleiro):
     
 def attack(coorThisPiece, coorAction,tabuleiro): 
     """ Retorna 0 caso o ataque seja invalido, retorna 1 caso seja valido e tambem faz a realocação da peça """
-    if isDiagonal(coorThisPiece,coorAction):    
+    if isDiagonal(coorThisPiece,coorAction):
         if getDirectionVerticalMoviment(coorThisPiece,coorAction) == 'DOWN':
             if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]+1]
@@ -51,13 +51,13 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)    
                         return 1
-            else: #LEFT
+            else:
                 coorEnemy = [coorThisPiece[0]+1,coorThisPiece[1]-1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
                     if isEmptyPosition(coorAction,tabuleiro) and isValidPosition(coorAction):
                         replacePiece(coorThisPiece,coorEnemy,coorAction,tabuleiro)
                         return 1
-        else: #UP
+        else:
             if getDirectionHorizontalMoviment(coorThisPiece, coorAction) == 'RIGHT':
                 coorEnemy = [coorThisPiece[0]-1,coorThisPiece[1]+1]
                 if hasEnemy(coorThisPiece,coorEnemy,tabuleiro):
@@ -72,46 +72,3 @@ def attack(coorThisPiece, coorAction,tabuleiro):
                         return 1
     print('Não é possivel esse ataque!')
     return 0
-
-
-def isValidAttackWhitePieceToBack(x,y,tabuleiro):
-    result = False
-
-    if tabuleiro[x][y] == 'P':
-        if not ((y - 1) < 0 or (y + 1) > 7): 
-            if isRightFront(x,y,tabuleiro):
-                #direita
-                result = True
-            elif isLeftFront(x,y,tabuleiro):
-                #esquerda
-                result = True
-        
-    return result
-
-def isLeftFront(x,y,tabuleiro):
-    if tabuleiro[x-1][y-1] == ' ':
-        return True
-    else:
-        return False
-
-def isLeftBack(x,y,tabuleiro):
-    if tabuleiro[x+1][y-1] == ' ':
-        return True
-    else:
-        return False
-
-def isRightFront(x,y,tabuleiro):
-    if tabuleiro[x-1][y+1] == ' ':
-        return True
-    else:
-        return False
-
-def isRightBack(x,y,tabuleiro):
-    if tabuleiro[x+1][y+1] == ' ':
-        return True
-    else:
-        return False
-
-def attack(xlinha, ycoluna, tabuleiro):
-    
-    return 'NADA AINDA';
