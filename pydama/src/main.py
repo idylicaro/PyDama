@@ -1,12 +1,22 @@
 #!python3
-import view , controller
+import view
 from view import presentation
+import controller
 from controller import gameControl
-player1 = 12
-player2 = 12
-#while (player1 != 0 or player2 != 0):
+from controller import attackControl 
+from controller import moveControl
+from controller import damaPiece
+
+turno = 0
+player1Piece = 'B'
+player2Piece = 'P'
+player1Score = 12
+player2Score = 12
+currentPlayer  = ''
+lastPlayerPiece = 'P'
+quantidadeDePecaComidaNoRound = 0 
+
 tabuleiro = gameControl.initializeTabuleiro()
-presentation.display(tabuleiro)
 
 print('Qual que movimentar')
 gameControl.getCoordenadas()
